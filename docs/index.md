@@ -2,7 +2,7 @@
 
 **Code &amp; Data for Introduction to Machine Learning with Scikit-Learn**
 
-[![Scikit-Learn Cheat Sheet](docs/img/cheat_sheet.png)](http://scikit-learn.org/stable/tutorial/machine_learning_map/)
+[![Scikit-Learn Cheat Sheet](img/cheat_sheet.png)](http://scikit-learn.org/stable/tutorial/machine_learning_map/)
 
 ## Installing Scikit-Learn with pip
 
