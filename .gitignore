@@ -58,3 +58,10 @@ venv
 
 # Mac Stuff
 .DS_Store
+
+# Only compressed data
+data/*
+!data/*.tgz
+
+# Ignore pickles
+code/*.pickle
