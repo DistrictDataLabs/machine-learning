@@ -27,7 +27,6 @@ from sklearn import cross_validation
 ## Fixtures
 ##########################################################################
 
-DATA_PATH = "wheat/seeds_dataset.txt"
 NUM_FOLDS = 12
 
 ##########################################################################
@@ -40,9 +39,9 @@ from sklearn.neighbors import KNeighborsClassifier
 start_time = time.time()
 
 # Load the dataset
-dataset    = load_data(DATA_PATH)
-data       = dataset[:,0:7]
-target     = dataset[:,7]
+dataset    = load_wheat()
+data       = dataset.data
+target     = dataset.target
 
 # Get training and testing splits
 splits     = cross_validation.train_test_split(data, target, test_size=0.2)
