@@ -21,55 +21,54 @@ import time
 import pickle
 
 from utils import *
+from sklearn import metrics
 from sklearn import cross_validation
 
-##########################################################################
-## Fixtures
-##########################################################################
-
-NUM_FOLDS = 12
-
-##########################################################################
-## k-Nearest Neighbor Classification
-##########################################################################
-
-from sklearn import metrics
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 
-start_time = time.time()
+##########################################################################
+## Wheat Kernel Classification
+##########################################################################
 
-# Load the dataset
-dataset    = load_wheat()
-data       = dataset.data
-target     = dataset.target
+if __name__ == '__main__':
 
-# Get training and testing splits
-splits     = cross_validation.train_test_split(data, target, test_size=0.2)
-data_train, data_test, target_train, target_test = splits
+    start_time = time.time()
 
-load_time  = time.time()
+    # Load the dataset
+    dataset    = load_wheat()
+    data       = dataset.data
+    target     = dataset.target
 
-# Fit the training data to the model
-model      = KNeighborsClassifier()
-model.fit(data_train, target_train)
+    # Get training and testing splits
+    splits     = cross_validation.train_test_split(data, target, test_size=0.2)
+    data_train, data_test, target_train, target_test = splits
 
-build_time = time.time()
+    load_time  = time.time()
 
-print model
+    # Fit the training data to the model
+    model      = KNeighborsClassifier()
+    # model      = SVC()
+    model.fit(data_train, target_train)
 
-# Make predictions
-expected   = target_test
-predicted  = model.predict(data_test)
+    build_time = time.time()
 
-# Evaluate the predictions
-print metrics.classification_report(expected, predicted)
-print metrics.confusion_matrix(expected, predicted)
+    print model
 
-eval_time  = time.time()
+    # Make predictions
+    expected   = target_test
+    predicted  = model.predict(data_test)
 
-print "Times: %0.3f sec loading, %0.3f sec building, %0.3f sec evaluation" % (load_time-start_time, build_time-load_time, eval_time-build_time,)
-print "Total time: %0.3f seconds" % (eval_time-start_time)
+    # Evaluate the predictions
+    print metrics.classification_report(expected, predicted, target_names=dataset.target_names.values())
+    print metrics.confusion_matrix(expected, predicted)
 
-# Save the model to disk
-with open('model.pickle', 'w') as f:
-    pickle.dump(model, f)
+    eval_time  = time.time()
+
+    print "Times: %0.3f sec loading, %0.3f sec building, %0.3f sec evaluation" % \
+          (load_time-start_time, build_time-load_time, eval_time-build_time,)
+    print "Total time: %0.3f seconds" % (eval_time-start_time)
+
+    # Save the model to disk
+    with open('model.pickle', 'w') as f:
+        pickle.dump(model, f)
