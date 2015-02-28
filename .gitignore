@@ -65,3 +65,5 @@ data/*
 
 # Ignore pickles
 code/*.pickle
+
+.ipynb_checkpoints
