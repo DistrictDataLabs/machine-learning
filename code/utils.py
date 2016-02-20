@@ -48,7 +48,7 @@ def timeit(func):
         result = func(*args, **kwargs)
         return result, time.time() - start
 
-    return timeit
+    return wrapper
 
 ##########################################################################
 ## Dataset Loading
@@ -88,7 +88,6 @@ def load_data(path, descr=None, target_index=-1):
             - README.md     # The file to load into DESCR
             - meta.json     # A file containing metadata to load
             - dataset.txt   # The numpy loadtxt file
-            - dataset.csv   # The pandas read_csv file
 
     You can specify another descr, another feature_names, and whether or
     not the dataset has a header row. You can also specify the index of the
